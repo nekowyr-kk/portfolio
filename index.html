@@ -59,6 +59,14 @@
     .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
     .project-item { position: relative; overflow: hidden; aspect-ratio: 4/3; background: var(--light); cursor: none; }
     .project-cover { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .project-item img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     position: absolute;
+     top: 0;
+     left: 0;
+     }
     .project-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(145deg, var(--light), var(--faint)); transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
     .placeholder-num { font-family: var(--mono); font-size: 48px; color: var(--faint); font-weight: 400; line-height: 1; }
     .placeholder-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #bbb; }
@@ -219,7 +227,8 @@
       .hero-right { height: 260px; }
       .scroll-hint { left: 24px; }
       .works { padding: 80px 24px; }
-      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-item { aspect-ratio: 4/3 !important; }
       footer { padding: 36px 24px; flex-direction: column; gap: 16px; text-align: center; }
       .detail-hero { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 36px; }
       .detail-gallery { padding: 36px 24px 60px; }
@@ -372,8 +381,9 @@
     if (wideIndexes.includes(i)) div.style.cssText = 'grid-column:span 2;aspect-ratio:16/7';
     div.onclick = () => openDetail(i);
 
-    const inner = p.cover
-      ? `<img class="project-cover" src="${p.cover}" alt="${p.title}">`
+   const inner = p.cover
+   ? `< img class="project-cover" src="${p.cover}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;">`
+
       : `<div class="project-placeholder"><div class="placeholder-num">${String(i+1).padStart(2,'0')}</div><div class="placeholder-label">替换为项目图片</div></div>`;
 
     div.innerHTML = `
