@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Neko Portfolio</title>
+  <meta name="description" content="钱波 Neko 的平面设计作品集，涵盖品牌视觉、展览空间、印刷物料与赛事主视觉设计。" />
+  <title>钱波 Neko Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Space+Mono:ital@0;1&display=swap" rel="stylesheet" />
@@ -12,236 +13,127 @@
     :root {
       --ink: #111111;
       --paper: #f7f5f0;
-      --accent: #c8a97e;
+      --accent: #b28c5c;
       --light: #e8e4dc;
       --faint: #d4cfc6;
       --serif: 'Noto Serif SC', serif;
       --mono: 'Space Mono', monospace;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--paper); color: var(--ink); font-family: var(--serif); font-weight: 300; overflow-x: hidden; cursor: none; }
+    body { background: var(--paper); color: var(--ink); font-family: var(--serif); font-weight: 300; overflow-x: hidden; }
+    a, button, .project-item, .masonry-item { cursor: pointer; }
 
-    /* Cursor */
-    .cursor { position: fixed; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
-    .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s, border-color 0.2s; }
+    @media (hover: hover) and (pointer: fine) {
+      body, a, button, .project-item, .masonry-item { cursor: none; }
+      .cursor, .cursor-ring { display: block; }
+    }
+
+    .cursor { display: none; position: fixed; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cursor-ring { display: none; position: fixed; width: 36px; height: 36px; border: 1px solid var(--ink); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s, height 0.3s, border-color 0.2s; }
     .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--accent); }
 
-    /* Header */
-    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 52px; background: var(--paper); border-bottom: 1px solid transparent; transition: border-color 0.4s; }
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 28px 52px; background: rgba(247,245,240,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color 0.4s; }
     header.scrolled { border-color: var(--faint); }
     .logo { font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
     .logo span { color: var(--accent); }
-    nav { display: flex; gap: 36px; }
-    nav a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+    nav { display: flex; gap: 30px; align-items: center; }
+    nav a { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink); text-decoration: none; opacity: 0.58; transition: opacity 0.2s; }
     nav a:hover { opacity: 1; }
 
-    /* Hero */
-    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 90px; }
+    .hero { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(420px, 1fr); padding-top: 90px; }
     .hero-left { display: flex; flex-direction: column; justify-content: flex-end; padding: 80px 52px; border-right: 1px solid var(--faint); }
     .hero-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
-    .hero-name { font-size: clamp(52px, 6vw, 96px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
+    .hero-name { font-size: clamp(48px, 6vw, 92px); font-weight: 300; line-height: 1.06; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
     .hero-name em { font-style: italic; font-weight: 600; color: var(--accent); }
-    .hero-desc { margin-top: 40px; font-size: 14px; line-height: 2; color: #555; max-width: 380px; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
-    .hero-disciplines { margin-top: 52px; display: flex; gap: 20px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s 0.8s forwards; }
-    .disc-pill { border: 1px solid var(--faint); padding: 8px 18px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #666; }
+    .hero-desc { margin-top: 38px; font-size: 15px; line-height: 2; color: #555; max-width: 440px; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+    .hero-disciplines { margin-top: 48px; display: flex; gap: 14px; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.9s 0.8s forwards; }
+    .disc-pill { border: 1px solid var(--faint); padding: 8px 16px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #666; background: rgba(255,255,255,0.18); }
     .hero-right { position: relative; overflow: hidden; opacity: 0; animation: fadeIn 1.2s 0.5s forwards; }
-    .hero-image-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--light), var(--faint)); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
-    .hero-image-placeholder span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-right::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0.04), rgba(17,17,17,0.18)); pointer-events: none; }
     .scroll-hint { position: absolute; bottom: 40px; left: 52px; display: flex; align-items: center; gap: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #999; opacity: 0; animation: fadeUp 1s 1.2s forwards; }
     .scroll-line { width: 48px; height: 1px; background: var(--faint); position: relative; overflow: hidden; }
     .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--ink); animation: scanLine 2s 1.5s infinite; }
 
-    /* Works */
     .works { padding: 120px 52px; }
-    .section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 80px; padding-bottom: 20px; border-bottom: 1px solid var(--faint); }
-    .section-title { font-size: clamp(28px, 3vw, 42px); font-weight: 300; letter-spacing: -0.01em; }
-    .section-count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 80px; padding-bottom: 20px; border-bottom: 1px solid var(--faint); }
+    .section-title { font-size: clamp(28px, 3vw, 42px); font-weight: 300; }
+    .section-count { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; color: var(--accent); white-space: nowrap; }
     .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .project-item { position: relative; overflow: hidden; aspect-ratio: 16/9; background: var(--light); cursor: none; }
+    .project-item { position: relative; overflow: hidden; aspect-ratio: 16/9; background: var(--light); border: 0; text-align: left; font-family: inherit; color: inherit; }
     .project-cover { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .project-item img {
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     position: absolute;
-     top: 0;
-     left: 0;
-     }
-    .project-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(145deg, var(--light), var(--faint)); transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .placeholder-num { font-family: var(--mono); font-size: 48px; color: var(--faint); font-weight: 400; line-height: 1; }
-    .placeholder-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #bbb; }
-    .project-item:hover .project-placeholder,
     .project-item:hover .project-cover { transform: scale(1.04); }
-    .project-overlay { position: absolute; inset: 0; background: rgba(17,17,17,0); display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; transition: background 0.4s; }
-    .project-item:hover .project-overlay { background: rgba(17,17,17,0.55); }
-    .project-info { transform: translateY(20px); opacity: 0; transition: transform 0.4s, opacity 0.4s; }
-    .project-item:hover .project-info { transform: translateY(0); opacity: 1; }
-    .project-category { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .project-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,17,17,0.02), rgba(17,17,17,0.72)); display: flex; flex-direction: column; justify-content: flex-end; padding: 34px; transition: background 0.4s; }
+    .project-info { transform: translateY(10px); opacity: 0; transition: transform 0.4s, opacity 0.4s; }
+    .project-item:hover .project-info, .project-item:focus-visible .project-info { transform: translateY(0); opacity: 1; }
+    .project-category { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
     .project-name { font-size: 22px; font-weight: 300; color: #f7f5f0; line-height: 1.3; }
-    .project-year { font-family: var(--mono); font-size: 11px; color: rgba(247,245,240,0.5); margin-top: 6px; }
+    .project-summary { margin-top: 10px; max-width: 520px; font-size: 13px; line-height: 1.8; color: rgba(247,245,240,0.76); }
+    .project-year { font-family: var(--mono); font-size: 11px; color: rgba(247,245,240,0.58); margin-top: 8px; }
 
-    /* ── PROJECT DETAIL PAGE ── */
-    .detail-page {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: var(--paper);
-      overflow-y: auto;
-      transform: translateY(100%);
-      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1);
-    }
+    .detail-page { position: fixed; inset: 0; z-index: 200; background: var(--paper); overflow-y: auto; transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
     .detail-page.open { transform: translateY(0); }
-
-    .detail-header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: var(--paper);
-      border-bottom: 1px solid var(--faint);
-      padding: 20px 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .detail-back {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #888;
-      background: none;
-      border: none;
-      cursor: none;
-      transition: color 0.2s;
-    }
+    .detail-header { position: sticky; top: 0; z-index: 10; background: rgba(247,245,240,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--faint); padding: 20px 52px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .detail-back { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #777; background: none; border: none; transition: color 0.2s; }
     .detail-back:hover { color: var(--ink); }
     .detail-back-arrow { font-size: 18px; line-height: 1; }
-    .detail-header-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #aaa; }
-
-    .detail-hero {
-      padding: 60px 52px 48px;
-      display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 80px;
-      align-items: end;
-      border-bottom: 1px solid var(--faint);
-    }
-    .detail-title-area {}
+    .detail-header-title { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #999; text-align: right; }
+    .detail-hero { padding: 60px 52px 48px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 80px; align-items: end; border-bottom: 1px solid var(--faint); }
     .detail-cat { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-    .detail-title { font-size: clamp(36px, 4vw, 64px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
-    .detail-desc { font-size: 15px; line-height: 2; color: #555; max-width: 560px; }
+    .detail-title { font-size: clamp(36px, 4vw, 64px); font-weight: 300; line-height: 1.1; margin-bottom: 24px; }
+    .detail-desc { font-size: 15px; line-height: 2; color: #555; max-width: 640px; }
     .detail-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .meta-item label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #bbb; display: block; margin-bottom: 8px; }
-    .meta-item span { font-size: 13px; color: var(--ink); }
-
-    /* Masonry / waterfall grid */
-    .detail-gallery {
-      padding: 52px 52px 80px;
-    }
-    .gallery-intro {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #bbb;
-      margin-bottom: 32px;
-    }
-    .masonry {
-      columns: 2;
-      column-gap: 12px;
-    }
-    .masonry-item {
-      break-inside: avoid;
-      margin-bottom: 12px;
-      overflow: hidden;
-      background: var(--light);
-      cursor: none;
-    }
-    .masonry-item img {
-      width: 100%;
-      display: block;
-      transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
+    .meta-item label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: #aaa; display: block; margin-bottom: 8px; }
+    .meta-item span { font-size: 13px; color: var(--ink); line-height: 1.7; }
+    .detail-gallery { padding: 52px 52px 80px; }
+    .gallery-intro { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #aaa; margin-bottom: 32px; }
+    .masonry { columns: 2; column-gap: 12px; }
+    .masonry-item { break-inside: avoid; margin-bottom: 12px; overflow: hidden; background: var(--light); border: 0; padding: 0; display: block; width: 100%; }
+    .masonry-item img { width: 100%; display: block; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
     .masonry-item:hover img { transform: scale(1.03); }
-
-    /* Image placeholder in gallery */
-    .gallery-placeholder {
-      width: 100%;
-      background: linear-gradient(145deg, var(--light), var(--faint));
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 40px 20px;
-    }
-    .gallery-placeholder .gp-num { font-family: var(--mono); font-size: 32px; color: var(--faint); line-height: 1; }
-    .gallery-placeholder .gp-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #ccc; }
-
-    /* Full-image lightbox (within detail page) */
-    .img-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 300;
-      background: rgba(10,10,10,0.97);
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+    .img-lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(10,10,10,0.97); display: none; align-items: center; justify-content: center; padding: 28px; }
     .img-lightbox.open { display: flex; }
     .img-lightbox img { max-width: 92vw; max-height: 92vh; object-fit: contain; }
-    .img-lightbox-close {
-      position: fixed;
-      top: 28px; right: 36px;
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      background: none;
-      border: none;
-      cursor: none;
-      transition: color 0.2s;
-    }
+    .img-lightbox-close { position: fixed; top: 28px; right: 36px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: none; border: none; transition: color 0.2s; }
     .img-lightbox-close:hover { color: #fff; }
 
-    /* Footer */
-    footer { border-top: 1px solid var(--faint); padding: 52px; display: flex; align-items: center; justify-content: space-between; }
+    footer { border-top: 1px solid var(--faint); padding: 52px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
     .footer-name { font-size: 20px; font-weight: 300; }
-    .footer-copy { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #bbb; }
+    .footer-links { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .footer-links a, .footer-copy { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #999; text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
 
-    /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes scanLine { 0% { left: -100%; } 100% { left: 100%; } }
 
-    /* Responsive */
     @media (max-width: 768px) {
-      header, .detail-header { padding: 20px 24px; }
-      nav { gap: 20px; }
+      header, .detail-header { padding: 18px 24px; }
+      nav { gap: 18px; }
       .hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 100px 24px 60px; border-right: none; border-bottom: 1px solid var(--faint); }
-      .hero-right { height: 260px; }
-      .scroll-hint { left: 24px; }
-      .works { padding: 80px 24px; }
+      .hero-left { padding: 96px 24px 56px; border-right: none; border-bottom: 1px solid var(--faint); }
+      .hero-right { height: 300px; }
+      .scroll-hint { position: static; margin-top: 44px; }
+      .works { padding: 78px 24px; }
+      .section-header { margin-bottom: 42px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .project-item { aspect-ratio: 16/9 !important; }
-      footer { padding: 36px 24px; flex-direction: column; gap: 16px; text-align: center; }
+      .project-item { aspect-ratio: 4/3; }
+      .project-overlay { padding: 24px; background: linear-gradient(180deg, rgba(17,17,17,0.12), rgba(17,17,17,0.78)); }
+      .project-info { opacity: 1; transform: none; }
+      .project-summary { display: none; }
+      footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
+      .footer-links { justify-content: flex-start; }
       .detail-hero { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 36px; }
+      .detail-meta { grid-template-columns: 1fr; }
       .detail-gallery { padding: 36px 24px 60px; }
       .masonry { columns: 1; }
     }
   </style>
 </head>
 <body>
-
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- HEADER -->
   <header id="header">
     <a href="#" class="logo">钱波 Neko<span>.</span></a>
     <nav>
@@ -250,16 +142,15 @@
     </nav>
   </header>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-left">
-      <p class="hero-tag">平面设计师 · 武汉</p>
+      <p class="hero-tag">平面设计师 / 武汉</p>
       <h1 class="hero-name">以设计<br>构建<em>品牌</em><br>与空间叙事</h1>
-      <p class="hero-desc">专注于品牌视觉识别、印刷物料与空间展览设计，相信好的设计是无声的语言。</p>
+      <p class="hero-desc">专注品牌视觉识别、印刷物料与展览空间设计。擅长将视觉系统延展到线下场景，让品牌在传播、物料与空间中保持一致而清晰的表达。</p>
       <div class="hero-disciplines">
-        <span class="disc-pill">品牌 VI</span>
-        <span class="disc-pill">印刷物料</span>
-        <span class="disc-pill">展览空间</span>
+        <span class="disc-pill">Brand VI</span>
+        <span class="disc-pill">Print Design</span>
+        <span class="disc-pill">Exhibition</span>
       </div>
       <div class="scroll-hint">
         <div class="scroll-line"></div>
@@ -267,28 +158,29 @@
       </div>
     </div>
     <div class="hero-right">
-      <img src="cover.jpg" style="width:100%;height:100%;object-fit:cover">
+      <img src="cover.jpg" alt="钱波 Neko 作品集封面" />
     </div>
   </section>
 
-  <!-- WORKS -->
   <section class="works" id="works">
     <div class="section-header">
       <h2 class="section-title">精选作品</h2>
-      <span class="section-count">01 — 04</span>
+      <span class="section-count">01 - 04</span>
     </div>
     <div class="projects-grid" id="projectsGrid"></div>
   </section>
 
   <footer>
     <div class="footer-name">钱波 Neko</div>
-    <div class="footer-copy">© 2024 版权所有</div>
+    <div class="footer-links">
+      <a href="mailto:nekowyr@gmail.com">nekowyr@gmail.com</a>
+      <span class="footer-copy">© 2024 All Rights Reserved</span>
+    </div>
   </footer>
 
-  <!-- PROJECT DETAIL PAGE -->
-  <div class="detail-page" id="detailPage">
+  <div class="detail-page" id="detailPage" aria-hidden="true">
     <div class="detail-header">
-      <button class="detail-back" onclick="closeDetail()">
+      <button class="detail-back" type="button" onclick="closeDetail()">
         <span class="detail-back-arrow">←</span> 返回作品集
       </button>
       <span class="detail-header-title" id="detailHeaderTitle"></span>
@@ -307,154 +199,137 @@
     </div>
   </div>
 
-  <!-- FULL IMAGE LIGHTBOX -->
-  <div class="img-lightbox" id="imgLightbox" onclick="closeImgLightbox()">
-    <button class="img-lightbox-close" onclick="closeImgLightbox()">关闭 ✕</button>
+  <div class="img-lightbox" id="imgLightbox" onclick="closeImgLightbox()" aria-hidden="true">
+    <button class="img-lightbox-close" type="button" onclick="closeImgLightbox()">关闭 ×</button>
     <img id="imgLightboxSrc" src="" alt="" />
   </div>
 
   <script>
-  // ════════════════════════════════════════════
-  //  项目数据 — 在这里填写你的内容
-  // ════════════════════════════════════════════
   const projects = [
-  {
-    category: "Exhibition Space Design",
-    title: "展览空间设计",
-    desc: "2023至2025年间，主导参与三场上海头部行业展会的展位全案设计，涵盖「设计上海」及连续两届「上海国际酒店及商业空间博览会」。展位面积35㎡至60㎡不等，负责从展位主题概念到落地执行的完整链路——包括展位平面方案、配合三维团队完成空间渲染、展出样板遴选、搭建材料确认，以及折页、周边、邀请函等配套物料的设计，并全程对接搭建方与主办方。",
-    year: "2023—2025",
-    type: "展览空间",
-    client: "上海行业展会",
-    tools: "Illustrator, Photoshop, CorelDRAW, AutoCAD",
-    cover: "p1-01.jpg",
-    images: ["p1-01.jpg","p1-02.jpg","p1-03.jpg","p1-04.jpg","p1-05.jpg","p1-06.jpg","p1-07.jpg","p1-08.jpg","p1-09.jpg","p1-10.jpg"]
-  },
-  {
-    category: "Brand Identity & Application Design",
-    title: "品牌视觉识别与应用设计",
-    desc: "为一支在德国注册的地板品牌完成标志设计，并基于品牌调性延展至全套应用场景，涵盖产品包装设计、品牌画册及线下海报，实现从品牌形象建立到终端物料落地的完整视觉链路。",
-    year: "2024",
-    type: "品牌 VI / 应用设计",
-    client: "德国注册地板品牌",
-    tools: "Illustrator, Photoshop, InDesign",
-    cover: "p3-01.jpg",
-    images: [ "p3-01.jpg", "p3-02.jpg", "p3-03.jpg", "p3-04.jpg", "p3-05.jpg", "p3-07.jpg", "p3-08.jpg", "p3-09.jpg",]
-  },
-  {
-    category: "Visual Communication Design",
-    title: "视觉传达设计",
-    desc: "围绕地板品牌的日常推广需求，持续输出线上线下多场景视觉物料。线上覆盖小红书与微信平台的新品发布、品牌宣传及节日主题推广图；线下聚焦门店终端，涵盖促销活动海报与品牌形象海报，兼顾传播效率与品牌调性的统一表达。",
-    year: "2023—2025",
-    type: "视觉传达 / 平面设计",
-    client: "地板品牌",
-    tools: "Illustrator, Photoshop",
-    cover: "p4-07.jpg",
-    images: ["p4-01.jpg", "p4-02.jpg","p4-03.jpg", "p4-04.jpg", "p4-05.jpg", "p4-06.jpg","p4-07.jpg", "p4-08.jpg","p4-09.jpg", "p4-10.jpg", "p4-11.jpg","p4-12.jpg","p4-13.jpg","p4-14.jpg","p4-15.jpg","p4-16.jpg","p4-17.jpg","p4-18.jpg","p4-19.jpg","p4-20.jpg"]
-  },
-  {
-    category: "Event Visual Identity Design",
-    title: "赛事主视觉设计",
-    desc: "2016至2019年间，受全明星滑冰俱乐部委托，连续主导五场专业冰上赛事的主视觉设计，涵盖李宁杯·全明星亚洲花样滑冰邀请赛（武汉、北京、杭州）、天神杯·全明星亚洲花样滑冰邀请赛及全明星城市冰球巡回赛。每场赛事均负责从主视觉概念到全套落地物料的完整设计，包括主背景、秩序册、邀请函、奖牌、领奖台、签到墙、领奖墙、裁判席、围挡、吊旗、易拉宝、区域指示牌、宣传折页及社交媒体宣传图等。",
-    year: "2016—2019",
-    type: "赛事主视觉 / 物料设计",
-    client: "全明星滑冰俱乐部",
-    tools: "Illustrator, Photoshop, InDesign",
-    cover: "p2-22.jpg",
-    images: ["p2-01.jpg","p2-02.jpg","p2-03.jpg","p2-04.jpg","p2-05.jpg","p2-06.jpg","p2-07.jpg","p2-08.jpg","p2-09.jpg","p2-10.jpg","p2-11.jpg","p2-12.jpg","p2-13.jpg","p2-14.jpg","p2-15.jpg","p2-16.jpg","p2-17.jpg","p2-18.jpg","p2-19.jpg","p2-20.jpg","p2-21.jpg"]
-  },
-];
+    {
+      category: "Exhibition Space Design",
+      title: "展览空间设计",
+      summary: "从展位概念、平面方案到落地物料的完整设计执行。",
+      desc: "2023 至 2025 年间，主导参与三场上海头部行业展会的展位全案设计，涵盖「设计上海」及连续两届「上海国际酒店及商业空间博览会」。展位面积约 45 平方米至 60 平方米，负责从展位主题概念到落地执行的完整链路，包括展位平面方案、配合三维团队完成空间渲染、展出样板遴选、搭建材料确认，以及折页、周边、邀请函等配套物料设计，并全程对接搭建方与主办方。",
+      year: "2023 - 2025",
+      type: "展览空间 / 物料设计",
+      client: "上海行业展会",
+      tools: "Illustrator, Photoshop, CorelDRAW, AutoCAD",
+      cover: "p1-01.jpg",
+      images: ["p1-01.jpg","p1-02.jpg","p1-03.jpg","p1-04.jpg","p1-05.jpg","p1-06.jpg","p1-07.jpg","p1-08.jpg","p1-09.jpg","p1-10.jpg"]
+    },
+    {
+      category: "Brand Identity & Application Design",
+      title: "品牌视觉识别与应用设计",
+      summary: "建立品牌标识，并延展到包装、画册与线下传播物料。",
+      desc: "为一支在德国注册的地板品牌完成标志设计，并基于品牌调性延展至全套应用场景，涵盖产品包装设计、品牌画册及线下海报，实现从品牌形象建立到终端物料落地的完整视觉链路。",
+      year: "2024",
+      type: "品牌 VI / 应用设计",
+      client: "德国注册地板品牌",
+      tools: "Illustrator, Photoshop, InDesign",
+      cover: "p3-01.jpg",
+      images: ["p3-01.jpg","p3-02.jpg","p3-03.jpg","p3-04.jpg","p3-05.jpg","p3-07.jpg","p3-08.jpg","p3-09.jpg"]
+    },
+    {
+      category: "Visual Communication Design",
+      title: "视觉传达设计",
+      summary: "围绕品牌日常推广需求，持续输出线上线下传播视觉。",
+      desc: "围绕地板品牌的日常推广需求，持续输出线上线下多场景视觉物料。线上覆盖小红书与微信平台的新品发布、品牌宣传及节日主题推广图；线下聚焦门店终端，涵盖促销活动海报与品牌形象海报，兼顾传播效率与品牌调性的统一表达。",
+      year: "2023 - 2025",
+      type: "视觉传达 / 平面设计",
+      client: "地板品牌",
+      tools: "Illustrator, Photoshop",
+      cover: "p4-07.jpg",
+      images: ["p4-01.jpg","p4-02.jpg","p4-03.jpg","p4-04.jpg","p4-05.jpg","p4-06.jpg","p4-07.jpg","p4-08.jpg","p4-09.jpg","p4-10.jpg","p4-11.jpg","p4-12.jpg","p4-13.jpg","p4-14.jpg","p4-15.jpg","p4-16.jpg","p4-17.jpg","p4-18.jpg","p4-19.jpg","p4-20.jpg"]
+    },
+    {
+      category: "Event Visual Identity Design",
+      title: "赛事主视觉设计",
+      summary: "为专业冰上赛事建立主视觉，并落地到整套现场物料。",
+      desc: "2016 至 2019 年间，受全明星滑冰俱乐部委托，连续主导五场专业冰上赛事的主视觉设计，涵盖李宁杯全明星亚洲花样滑冰邀请赛（武汉、北京、杭州）、天神杯全明星亚洲花样滑冰邀请赛及全明星城市冰球巡回赛。每场赛事均负责从主视觉概念到全套落地物料的完整设计，包括主背景、秩序册、邀请函、奖牌、领奖台、签到墙、裁判席、围挡、吊旗、易拉宝、区域指示牌、宣传折页及社交媒体宣传图等。",
+      year: "2016 - 2019",
+      type: "赛事主视觉 / 物料设计",
+      client: "全明星滑冰俱乐部",
+      tools: "Illustrator, Photoshop, InDesign",
+      cover: "p2-22.jpg",
+      images: ["p2-01.jpg","p2-02.jpg","p2-03.jpg","p2-04.jpg","p2-05.jpg","p2-06.jpg","p2-07.jpg","p2-08.jpg","p2-09.jpg","p2-10.jpg","p2-11.jpg","p2-12.jpg","p2-13.jpg","p2-14.jpg","p2-15.jpg","p2-16.jpg","p2-17.jpg","p2-18.jpg","p2-19.jpg","p2-20.jpg","p2-21.jpg"]
+    }
+  ];
 
-
-  // ════════════════════════════════════════════
-  //  渲染首页项目网格
-  // ════════════════════════════════════════════
   const grid = document.getElementById('projectsGrid');
-  const wideIndexes = []; // 第1和第4个项目占满宽度
-
   projects.forEach((p, i) => {
-    const div = document.createElement('div');
-    div.className = 'project-item';
-    if (wideIndexes.includes(i)) div.style.cssText = 'grid-column:span 2;aspect-ratio:16/9';
-    div.onclick = () => openDetail(i);
-
-   const inner = p.cover
-   ? `<img class="project-cover" src="${p.cover}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0;">`
-
-      : `<div class="project-placeholder"><div class="placeholder-num">${String(i+1).padStart(2,'0')}</div><div class="placeholder-label">替换为项目图片</div></div>`;
-
-    div.innerHTML = `
-      ${inner}
+    const button = document.createElement('button');
+    button.className = 'project-item';
+    button.type = 'button';
+    button.setAttribute('aria-label', `查看作品：${p.title}`);
+    button.onclick = () => openDetail(i);
+    button.innerHTML = `
+      <img class="project-cover" src="${p.cover}" alt="${p.title} 封面" loading="${i === 0 ? 'eager' : 'lazy'}">
       <div class="project-overlay">
         <div class="project-info">
           <div class="project-category">${p.category}</div>
           <div class="project-name">${p.title}</div>
+          <div class="project-summary">${p.summary}</div>
           <div class="project-year">${p.year}</div>
         </div>
       </div>`;
-    grid.appendChild(div);
+    grid.appendChild(button);
   });
 
-  // ════════════════════════════════════════════
-  //  项目详情页
-  // ════════════════════════════════════════════
   function openDetail(i) {
     const p = projects[i];
-    document.getElementById('detailHeaderTitle').textContent = p.title;
+    document.getElementById('detailHeaderTitle').textContent = p.category;
     document.getElementById('detailCat').textContent = p.category;
     document.getElementById('detailTitle').textContent = p.title;
     document.getElementById('detailDesc').textContent = p.desc;
-
     document.getElementById('detailMeta').innerHTML = `
       <div class="meta-item"><label>年份</label><span>${p.year}</span></div>
       <div class="meta-item"><label>类型</label><span>${p.type}</span></div>
       <div class="meta-item"><label>客户</label><span>${p.client}</span></div>
       <div class="meta-item"><label>工具</label><span>${p.tools}</span></div>
     `;
-
-    const validImgs = p.images.filter(s => s.trim() !== '');
-    const total = p.images.length;
-    document.getElementById('galleryIntro').textContent =
-      validImgs.length > 0
-        ? `图片 — ${String(validImgs.length).padStart(2,'0')}`
-        : `图片占位 — ${String(total).padStart(2,'0')} 张（填入图片路径后显示）`;
-
+    document.getElementById('galleryIntro').textContent = `图片 - ${String(p.images.length).padStart(2, '0')}`;
     const masonry = document.getElementById('masonryGrid');
     masonry.innerHTML = '';
     p.images.forEach((src, idx) => {
-      const item = document.createElement('div');
+      const item = document.createElement('button');
       item.className = 'masonry-item';
-      if (src) {
-        item.innerHTML = `<img src="${src}" alt="${p.title} ${idx+1}" loading="lazy">`;
-        item.onclick = () => openImgLightbox(src);
-      } else {
-        // 高度交错，模拟瀑布流视觉
-        const heights = [180, 240, 200, 260, 180, 220, 200, 240, 180, 220];
-        item.innerHTML = `<div class="gallery-placeholder" style="min-height:${heights[idx % heights.length]}px"><div class="gp-num">${String(idx+1).padStart(2,'0')}</div><div class="gp-label">images/p${i+1}-${String(idx+1).padStart(2,'0')}.jpg</div></div>`;
-      }
+      item.type = 'button';
+      item.setAttribute('aria-label', `放大查看 ${p.title} 图片 ${idx + 1}`);
+      item.innerHTML = `<img src="${src}" alt="${p.title} ${idx + 1}" loading="lazy">`;
+      item.onclick = () => openImgLightbox(src, `${p.title} ${idx + 1}`);
       masonry.appendChild(item);
     });
-
     const page = document.getElementById('detailPage');
     page.scrollTop = 0;
     page.classList.add('open');
+    page.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
   function closeDetail() {
-    document.getElementById('detailPage').classList.remove('open');
+    const page = document.getElementById('detailPage');
+    page.classList.remove('open');
+    page.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  // ════════════════════════════════════════════
-  //  全屏图片预览
-  // ════════════════════════════════════════════
-  function openImgLightbox(src) {
-    document.getElementById('imgLightboxSrc').src = src;
-    document.getElementById('imgLightbox').classList.add('open');
+  function openImgLightbox(src, alt) {
+    const img = document.getElementById('imgLightboxSrc');
+    img.src = src;
+    img.alt = alt || '';
+    const lightbox = document.getElementById('imgLightbox');
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
   }
+
   function closeImgLightbox() {
-    document.getElementById('imgLightbox').classList.remove('open');
+    const lightbox = document.getElementById('imgLightbox');
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
   }
+
+  document.getElementById('imgLightboxSrc').addEventListener('click', e => e.stopPropagation());
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       closeImgLightbox();
@@ -462,30 +337,30 @@
     }
   });
 
-  // ════════════════════════════════════════════
-  //  Custom cursor
-  // ════════════════════════════════════════════
   const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => {
-    mx=e.clientX; my=e.clientY;
-    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
-  });
-  (function animRing(){
-    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(animRing);
-  })();
-  document.querySelectorAll('a,button,.project-item,.masonry-item').forEach(el=>{
-    el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
-    el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
-  });
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  const useCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (useCustomCursor) {
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+  }
 
-  // Scroll header
-  window.addEventListener('scroll',()=>{
-    document.getElementById('header').classList.toggle('scrolled',window.scrollY>60);
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
   });
   </script>
 </body>
 </html>
+
