@@ -108,25 +108,66 @@
     @keyframes scanLine { 0% { left: -100%; } 100% { left: 100%; } }
 
     @media (max-width: 768px) {
-      header, .detail-header { padding: 18px 24px; }
+      header, .detail-header { padding: 18px 22px; }
+      .logo { font-size: 12px; letter-spacing: 0.1em; }
       nav { gap: 18px; }
+      nav a { font-size: 10px; letter-spacing: 0.12em; }
       .hero { grid-template-columns: 1fr; min-height: auto; }
       .hero-left { padding: 96px 24px 56px; border-right: none; border-bottom: 1px solid var(--faint); }
-      .hero-right { height: 300px; }
+      .hero-name { font-size: clamp(38px, 12vw, 52px); line-height: 1.12; }
+      .hero-desc { font-size: 14px; line-height: 1.9; margin-top: 28px; }
+      .hero-disciplines { margin-top: 34px; gap: 10px; }
+      .disc-pill { padding: 7px 12px; font-size: 9px; letter-spacing: 0.1em; }
+      .hero-right { height: auto; min-height: 0; background: var(--light); }
+      .hero-right img { width: 100%; height: auto; object-fit: contain; }
       .scroll-hint { position: static; margin-top: 44px; }
-      .works { padding: 78px 24px; }
-      .section-header { margin-bottom: 42px; }
+      .works { padding: 56px 22px 72px; }
+      .section-header { margin-bottom: 28px; }
+      .section-title { font-size: 26px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .project-item { aspect-ratio: 4/3; }
-      .project-overlay { padding: 24px; background: linear-gradient(180deg, rgba(17,17,17,0.12), rgba(17,17,17,0.78)); }
+      .project-item {
+        aspect-ratio: auto;
+        display: block;
+        width: 100%;
+        background: #17130f;
+      }
+      .project-cover {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        position: static;
+      }
+      .project-overlay {
+        inset: auto 0 0 0;
+        min-height: 42%;
+        padding: 18px 18px 16px;
+        background: linear-gradient(180deg, rgba(17,17,17,0), rgba(17,17,17,0.82) 34%, rgba(17,17,17,0.92));
+      }
       .project-info { opacity: 1; transform: none; }
+      .project-category {
+        font-size: 8px;
+        line-height: 1.5;
+        letter-spacing: 0.12em;
+        margin-bottom: 6px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
+      .project-name {
+        font-size: clamp(20px, 6vw, 26px);
+        line-height: 1.25;
+        max-width: 100%;
+      }
+      .project-year { font-size: 10px; margin-top: 8px; }
       .project-summary { display: none; }
       footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
       .footer-links { justify-content: flex-start; }
-      .detail-hero { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px 36px; }
+      .detail-hero { grid-template-columns: 1fr; gap: 34px; padding: 36px 24px 34px; }
+      .detail-title { font-size: clamp(30px, 9vw, 42px); }
+      .detail-desc { font-size: 14px; line-height: 1.9; }
       .detail-meta { grid-template-columns: 1fr; }
       .detail-gallery { padding: 36px 24px 60px; }
       .masonry { columns: 1; }
+      .masonry-item img { height: auto; object-fit: contain; }
     }
   </style>
 </head>
@@ -363,4 +404,3 @@
   </script>
 </body>
 </html>
-
