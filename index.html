@@ -24,8 +24,7 @@
     a, button, .project-item, .masonry-item { cursor: pointer; }
 
     @media (hover: hover) and (pointer: fine) {
-      body, a, button, .project-item, .masonry-item { cursor: none; }
-      .cursor, .cursor-ring { display: block; }
+      .cursor, .cursor-ring { display: none; }
     }
 
     .cursor { display: none; position: fixed; width: 10px; height: 10px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
@@ -129,7 +128,8 @@
         aspect-ratio: auto;
         display: block;
         width: 100%;
-        background: #17130f;
+        background: var(--paper);
+        border-bottom: 1px solid var(--faint);
       }
       .project-cover {
         width: 100%;
@@ -138,10 +138,10 @@
         position: static;
       }
       .project-overlay {
-        inset: auto 0 0 0;
-        min-height: 42%;
-        padding: 18px 18px 16px;
-        background: linear-gradient(180deg, rgba(17,17,17,0), rgba(17,17,17,0.82) 34%, rgba(17,17,17,0.92));
+        position: static;
+        min-height: 0;
+        padding: 16px 0 22px;
+        background: var(--paper);
       }
       .project-info { opacity: 1; transform: none; }
       .project-category {
@@ -153,11 +153,12 @@
         overflow-wrap: anywhere;
       }
       .project-name {
-        font-size: clamp(20px, 6vw, 26px);
+        font-size: clamp(18px, 5.1vw, 22px);
         line-height: 1.25;
         max-width: 100%;
+        color: var(--ink);
       }
-      .project-year { font-size: 10px; margin-top: 8px; }
+      .project-year { font-size: 10px; margin-top: 8px; color: #777; }
       .project-summary { display: none; }
       footer { padding: 36px 24px; flex-direction: column; align-items: flex-start; }
       .footer-links { justify-content: flex-start; }
